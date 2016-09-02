@@ -225,10 +225,10 @@ void Vx1730Digitizer::readCommonRegisterData()
     
     //give the readback results
     BOOST_LOG_SEV(lg, Information) << "ACQ Thread:Common Register Readback for Digitizer #" << moduleNumber;
-    BOOST_LOG_SEV(lg, Information) << "ACQ Thread:  Addr |   Read   ";
+    BOOST_LOG_SEV(lg, Information) << "ACQ Thread:   Addr |   Read   ";
     for(int i=0; i<regCount; ++i)
     {
-        BOOST_LOG_SEV(lg, Information) << "ACQ Thread:0x" << std::hex << std::setw(4) << std::setfill('0') << addrArray[i] << " | 0x" << std::hex << std::setw(8) << std::setfill('0') << rdbkArray[i] << std::dec;
+        BOOST_LOG_SEV(lg, Information) << "ACQ Thread: 0x" << std::hex << std::setw(4) << std::setfill('0') << addrArray[i] << " | 0x" << std::hex << std::setw(8) << std::setfill('0') << rdbkArray[i] << std::dec;
     }
 }
 
@@ -283,10 +283,10 @@ void Vx1730Digitizer::readGroupRegisterData()
     
     //give the readback results
     BOOST_LOG_SEV(lg, Information) << "ACQ Thread:Group Register Readback for Digitizer #" << moduleNumber;
-    BOOST_LOG_SEV(lg, Information) << "ACQ Thread:  Addr |   Read   ";
+    BOOST_LOG_SEV(lg, Information) << "ACQ Thread:   Addr |   Read   ";
     for(int i=0; i<regCount; ++i)
     {
-        BOOST_LOG_SEV(lg, Information) << "ACQ Thread:0x" << std::hex << std::setw(4) << std::setfill('0') << addrArray[i] << " | 0x" << std::hex << std::setw(8) << std::setfill('0') << rdbkArray[i] << std::dec;
+        BOOST_LOG_SEV(lg, Information) << "ACQ Thread: 0x" << std::hex << std::setw(4) << std::setfill('0') << addrArray[i] << " | 0x" << std::hex << std::setw(8) << std::setfill('0') << rdbkArray[i] << std::dec;
     }
 }
 
@@ -370,10 +370,10 @@ void Vx1730Digitizer::readIndividualRegisterData()
     
     //give the readback results
     BOOST_LOG_SEV(lg, Information) << "ACQ Thread:Individual Register Readback for Digitizer #" << moduleNumber;
-    BOOST_LOG_SEV(lg, Information) << "ACQ Thread:    Addr   |   Read   ";
+    BOOST_LOG_SEV(lg, Information) << "ACQ Thread:   Addr |   Read   ";
     for(int i=0; i<regCount; ++i)
     {
-        BOOST_LOG_SEV(lg, Information) << "ACQ Thread:0x" << std::hex << std::setw(8) << std::setfill('0') << addrArray[i] << " | 0x" << std::hex << std::setw(8) << std::setfill('0') << rdbkArray[i] << std::dec;
+        BOOST_LOG_SEV(lg, Information) << "ACQ Thread: 0x" << std::hex << std::setw(4) << std::setfill('0') << addrArray[i] << " | 0x" << std::hex << std::setw(8) << std::setfill('0') << rdbkArray[i] << std::dec;
     }
 }
 
