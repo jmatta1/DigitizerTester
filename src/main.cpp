@@ -46,7 +46,8 @@ int main(int argc, char* argv[])
     BOOST_LOG_SEV(lg, Information)  << "\n\n Starting up!\n" << std::flush;
     
     Digitizer::Vx1730Digitizer* digi = new Digitizer::Vx1730Digitizer();
-    digi->readDigitizer();
+    //digi->readDigitizer();
+    digi->clearDigitizer();
     
     BOOST_LOG_SEV(lg, Information)  << "\nORCHID has successfully shut down, have a nice day! :-)\n\n" << std::flush;
 
