@@ -37,7 +37,7 @@ public:
     ~Vx1730Digitizer();
     
     void readDigitizer();
-    void clearDigitizer()
+    void clearDigitizer();
 
 private:
     void writeErrorAndThrow(CAENComm_ErrorCode errVal);
