@@ -127,6 +127,51 @@ void Vx1730Digitizer::writeErrorAndThrow(CAENComm_ErrorCode errVal)
     }
 }
 
+void Vx1730Digitizer::clearDigitizer()
+{
+    using LowLvl::Vx1730WriteRegisters;
+    using LowLvl::Vx1730CommonWriteRegistersAddr;
+    
+    //open the digitizer
+    CAENComm_ErrorCode errVal;
+    BOOST_LOG_SEV(lg, Information) << "ACQ Thread: Opening VME Card Via Optical Link, Digitizer #" << moduleNumber;
+    errVal = CAENComm_OpenDevice(CAENComm_OpticalLink, 0, 0, 0x00000000,&(this->digitizerHandle));
+    
+    if (errVal < 0)
+    {
+        this->writeErrorAndThrow(errVal);
+    }
+    else
+    {
+        BOOST_LOG_SEV(lg, Information) << "ACQ Thread: Successfully Opened Digitizer #" << moduleNumber;
+        digitizerOpen = true;
+    }
+    
+    //hit the software reset to force the registers to default values
+    errVal = CAENComm_Write32(digitizerHandle, Vx1730CommonWriteRegistersAddr<Vx1730WriteRegisters::SoftwReset>::value, 0x00000000);
+    if(errVal < 0)
+    {
+        BOOST_LOG_SEV(lg, Error) << "ACQ Thread: Error Resetting Digitizer #" << moduleNumber;
+        this->writeErrorAndThrow(errVal);
+    }
+    //now hit the software clear to blank the data
+    errVal = CAENComm_Write32(digitizerHandle, Vx1730CommonWriteRegistersAddr<Vx1730WriteRegisters::SoftwClear>::value, 0x00000001);
+    if(errVal < 0)
+    {
+        BOOST_LOG_SEV(lg, Error) << "ACQ Thread: Error In Clearing Digitizer For Acquisition Start in Digitizer #" << moduleNumber;
+        this->writeErrorAndThrow(errVal);
+    }
+    //hit the sync for force the phase-lock loop to realign all clock outputs
+    errVal = CAENComm_Write32(digitizerHandle, Vx1730CommonWriteRegistersAddr<Vx1730WriteRegisters::SoftwClckSync>::value, 0x00000000);
+    if(errVal < 0)
+    {
+        BOOST_LOG_SEV(lg, Error) << "ACQ Thread: Error Forcing Clock Sync #" << moduleNumber;
+        this->writeErrorAndThrow(errVal);
+    }
+    
+    CAENComm_CloseDevice(this->digitizerHandle);
+}
+
 void Vx1730Digitizer::readDigitizer()
 {
     using LowLvl::Vx1730WriteRegisters;
